@@ -1,4 +1,5 @@
 import Header from '@/components/Header'
+import VideoCard from '@/components/VideoCard'
 import React from 'react'
 
 const Page = () => {
@@ -8,7 +9,17 @@ const Page = () => {
                                 title='All Videos'
                                 subHeader='Public Library'
                         />
-                        <h1 className='text-2xl'>Main</h1>
+                        <VideoCard
+                                id='1'
+                                title='Snapchat Message'
+                                thumbnail='/assets/samples/thumbnail (1).png'
+                                createdAt={new Date('2023-10-01')}
+                                userImg='/assets/images/jason.png'
+                                username='Jason'
+                                visibility='public'
+                                duration={156}
+                                views={1000}
+                        />
                 </main>
         )
 }

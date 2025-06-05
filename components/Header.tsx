@@ -1,6 +1,7 @@
 import { ICONS } from '@/constants'
 import Image from 'next/image'
 import Link from 'next/link'
+import DropdownList from './DropdownList'
 
 export default function Header({ subHeader, title, userImg }: SharedHeaderProps) {
         return (
@@ -21,7 +22,7 @@ export default function Header({ subHeader, title, userImg }: SharedHeaderProps)
                                                 <h1>{title}</h1>
                                         </article>
                                 </div>
-                                <aside>
+                                <aside className='flex-wrap'>
                                         <Link href='/upload'>
                                                 <Image
                                                         src='/assets/icons/upload.svg'
@@ -59,7 +60,7 @@ export default function Header({ subHeader, title, userImg }: SharedHeaderProps)
                                                 height={16}
                                         />
                                 </div>
-                                {`<DropdownList />`}
+                                <DropdownList />
                         </section>
                 </header>
         )
