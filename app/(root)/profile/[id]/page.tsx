@@ -5,7 +5,7 @@ import { dummyCards } from '@/constants'
 export default async function Profile({ params }: ParamsWithSearch) {
         const { id } = await params
         return (
-                <div className='wrapper page'>
+                <main className='wrapper page'>
                         <Header
                                 subHeader='suppport@yopmail.com'
                                 title='Yopmail'
@@ -19,6 +19,6 @@ export default async function Profile({ params }: ParamsWithSearch) {
                                         />
                                 ))}
                         </section>
-                </div>
+                </main>
         )
 }
