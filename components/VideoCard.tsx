@@ -19,7 +19,7 @@ export default function VideoCard({ id, title, thumbnail, createdAt, userImg, vi
                                 <div>
                                         <figure>
                                                 <Image
-                                                        src={userImg}
+                                                        src={userImg || '/assets/images/dummy.jpg'}
                                                         alt='avatar'
                                                         width={34}
                                                         height={34}
