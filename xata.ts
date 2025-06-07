@@ -7,7 +7,7 @@ const DatabaseClient = buildClient()
 
 const defaultOptions = {
         databaseURL: 'https://Zoirjon-Zokirjonov-s-workspace-m901tb.eu-central-1.xata.sh/db/loom_db',
-        apiKey: process.env.XATA_API_KEY,
+        apiKey: process.env.XATA_API_KEY!,
         branch: 'main',
 }
 
