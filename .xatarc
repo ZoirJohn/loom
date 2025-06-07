@@ -1,0 +1,6 @@
+{
+  "databaseURL": "https://Zoirjon-Zokirjonov-s-workspace-m901tb.eu-central-1.xata.sh/db/loom_db",
+  "codegen": {
+    "output": "src/xata.ts"
+  }
+}
