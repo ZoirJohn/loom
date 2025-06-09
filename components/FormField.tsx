@@ -1,17 +1,39 @@
 export default function FormField({ id, label, type = 'text', value, onChange, placeholder, as = 'input', options = [] }: FormFieldProps) {
-        const InputToRender = ({type}:{type:string}) => {
-                if (type == 'textarea') {
-                        return <textarea />
-                } else if (type == 'select') {
-                        return <select />
-                } else {
-                        return <input />
-                }
-        }
         return (
                 <div className='form-field'>
                         <label htmlFor={id}>{label}</label>
-			<InputToRender type={as}/>
+                        {type == 'textarea' ? (
+                                <textarea
+                                        id={id}
+                                        onChange={onChange}
+                                        name={id}
+                                        value={value}
+                                />
+                        ) : type == 'select' ? (
+                                <select
+                                        id={id}
+                                        onChange={onChange}
+                                        name={id}
+                                        value={value}
+                                >
+                                        {options.map(({ label, value }) => (
+                                                <option
+                                                        key={label}
+                                                        value={value}
+                                                >
+                                                        {label}
+                                                </option>
+                                        ))}
+                                </select>
+                        ) : (
+                                <input
+                                        id={id}
+                                        onChange={onChange}
+                                        name={id}
+                                        value={value}
+                                        placeholder={placeholder}
+                                />
+                        )}
                 </div>
         )
 }
