@@ -2,19 +2,21 @@ export default function FormField({ id, label, type = 'text', value, onChange, p
         return (
                 <div className='form-field'>
                         <label htmlFor={id}>{label}</label>
-                        {type == 'textarea' ? (
+                        {as == 'textarea' ? (
                                 <textarea
                                         id={id}
                                         onChange={onChange}
                                         name={id}
                                         value={value}
+                                        placeholder={placeholder}
                                 />
-                        ) : type == 'select' ? (
+                        ) : as == 'select' ? (
                                 <select
                                         id={id}
                                         onChange={onChange}
                                         name={id}
                                         value={value}
+                                        className='overflow-hidden'
                                 >
                                         {options.map(({ label, value }) => (
                                                 <option
@@ -32,6 +34,7 @@ export default function FormField({ id, label, type = 'text', value, onChange, p
                                         name={id}
                                         value={value}
                                         placeholder={placeholder}
+                                        type={type}
                                 />
                         )}
                 </div>
