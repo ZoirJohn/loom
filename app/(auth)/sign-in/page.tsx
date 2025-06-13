@@ -1,11 +1,12 @@
 'use client'
-import { authClient } from '@/lib/auth.client'
+import { authClient } from '@/lib/auth-client'
 import Image from 'next/image'
 import Link from 'next/link'
 
 export default function ComponentName() {
         const handleSignIn = async () => {
-                return await authClient.signIn.social({ provider: 'google' })
+                console.log('WORKED');
+                await authClient.signIn.social({ provider: 'google' })
         }
         return (
                 <main className='sign-in'>

@@ -32,6 +32,7 @@ const protectedAuth = async (req: NextRequest): Promise<ArcjetDecision> => {
 }
 
 const authHandlers = toNextJsHandler(auth.handler)
+export const { GET } = authHandlers
 
 export const POST = async (req: NextRequest) => {
         const decision = await protectedAuth(req)

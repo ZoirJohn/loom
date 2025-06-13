@@ -1,12 +1,16 @@
 'use client'
+import { authClient } from '@/lib/auth-client'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { redirect, useRouter } from 'next/navigation'
 
 const user = {}
 
 export default function Navbar() {
         const router = useRouter()
+        const handleSignOut = async () => {
+                await authClient.signOut({ fetchOptions: { onSuccess: () => redirect('/sign-in') } })
+        }
         return (
                 <header className='navbar'>
                         <nav>
@@ -30,13 +34,13 @@ export default function Navbar() {
                                                                 className='rounded-full aspect-square'
                                                         />
                                                 </button>
-                                                <button>
+                                                <button onClick={handleSignOut}>
                                                         <Image
                                                                 src='/assets/icons/logout.svg'
                                                                 width={24}
                                                                 height={24}
                                                                 alt='logout'
-                                                                className='rotate-180'
+                                                                className='rotate-180 cursor-pointer'
                                                         />
                                                 </button>
                                         </figure>
