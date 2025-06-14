@@ -5,7 +5,6 @@ import Link from 'next/link'
 
 export default function ComponentName() {
         const handleSignIn = async () => {
-                console.log('WORKED');
                 await authClient.signIn.social({ provider: 'google' })
         }
         return (

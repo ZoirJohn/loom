@@ -1,6 +1,6 @@
 import { type ClassValue, clsx } from 'clsx'
 import { ilike, sql } from 'drizzle-orm'
-// import { videos } from '@/drizzle/schema'
+import { videos } from '@/drizzle/schema'
 import { DEFAULT_VIDEO_CONFIG, DEFAULT_RECORDING_CONFIG } from '@/constants'
 import { twMerge } from 'tailwind-merge'
 
@@ -11,7 +11,6 @@ export function cn(...inputs: ClassValue[]) {
 export const updateURLParams = (currentParams: URLSearchParams, updates: Record<string, string | null | undefined>, basePath: string = '/'): string => {
         const params = new URLSearchParams(currentParams.toString())
 
-        // Process each parameter update
         Object.entries(updates).forEach(([name, value]) => {
                 if (value) {
                         params.set(name, value)
@@ -23,14 +22,12 @@ export const updateURLParams = (currentParams: URLSearchParams, updates: Record<
         return `${basePath}?${params.toString()}`
 }
 
-// Get env helper function
 export const getEnv = (key: string): string => {
         const value = process.env[key]
         if (!value) throw new Error(`Missing required env: ${key}`)
         return value
 }
 
-// API fetch helper with required Bunny CDN options
 export const apiFetch = async <T = Record<string, unknown>>(
         url: string,
         options: Omit<ApiFetchOptions, 'bunnyType'> & {
@@ -69,7 +66,6 @@ export const apiFetch = async <T = Record<string, unknown>>(
         return await response.json()
 }
 
-// Higher order function to handle errors
 export const withErrorHandling = <T, A extends unknown[]>(fn: (...args: A) => Promise<T>) => {
         return async (...args: A): Promise<T> => {
                 try {
@@ -82,19 +78,19 @@ export const withErrorHandling = <T, A extends unknown[]>(fn: (...args: A) => Pr
         }
 }
 
-// export const getOrderByClause = (filter?: string) => {
-//         switch (filter) {
-//                 case 'Most Viewed':
-//                         return sql`${videos.views} DESC`
-//                 case 'Least Viewed':
-//                         return sql`${videos.views} ASC`
-//                 case 'Oldest First':
-//                         return sql`${videos.createdAt} ASC`
-//                 case 'Most Recent':
-//                 default:
-//                         return sql`${videos.createdAt} DESC`
-//         }
-// }
+export const getOrderByClause = (filter?: string) => {
+        switch (filter) {
+                case 'Most Viewed':
+                        return sql`${videos.views} DESC`
+                case 'Least Viewed':
+                        return sql`${videos.views} ASC`
+                case 'Oldest First':
+                        return sql`${videos.createdAt} ASC`
+                case 'Most Recent':
+                default:
+                        return sql`${videos.createdAt} DESC`
+        }
+}
 
 export const generatePagination = (currentPage: number, totalPages: number) => {
         if (totalPages <= 7) {

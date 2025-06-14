@@ -55,7 +55,7 @@ export default function VideoCard({ id, title, thumbnail, createdAt, userImg, vi
                                         height={18}
                                 />
                         </button>
-                        {duration && <div className='duration'>{Math.ceil(duration / 60)}min</div>}
+                        {duration ? <div className='duration'>{Math.ceil(duration / 60)} min</div> : <div className='duration'>0 min</div>}
                 </Link>
         )
 }

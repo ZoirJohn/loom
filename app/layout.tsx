@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
-import { Karla } from 'next/font/google'
+import { Work_Sans } from 'next/font/google'
 import './globals.css'
 import { satoshi } from '../fonts/font'
 
-const geistKarla = Karla({
+const geistKarla = Work_Sans({
         variable: '--font-geist-karla',
         subsets: ['latin'],
 })
