@@ -13,7 +13,7 @@ export const emojis = ['😂', '😍', '👍']
 
 export const filterOptions = ['Most Viewed', 'Most Recent', 'Oldest First', 'Least Viewed']
 
-export const visibilities: Visibility[] = ['public', 'private']
+export const visibilities: string[] = ['public', 'private']
 
 export const ICONS = {
         record: '/assets/icons/record.svg',
