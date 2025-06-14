@@ -1,3 +1,4 @@
+import VideoDetailHeader from '@/components/VideoDetailHeadet'
 import VideoPlayer from '@/components/VideoPlayer'
 import { getVideoById } from '@/lib/actions/videos'
 import { redirect } from 'next/navigation'
@@ -10,7 +11,14 @@ export default async function Page({ params }: Params) {
 
         return (
                 <main className='wrapper page'>
-                        <h1 className='text-2xl'>{video.title}</h1>
+                        <VideoDetailHeader
+                                {...video}
+                                id={video.id}
+                                userImg={user?.image}
+                                username={user?.name}
+                                ownerId={video?.userId}
+                        />
+
                         <section className='video-details'>
                                 <div className='content'>
                                         <VideoPlayer videoId={video.videoId} />

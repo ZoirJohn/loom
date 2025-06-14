@@ -9,7 +9,7 @@ export default function VideoPlayer({ videoId }: VideoPlayerProps) {
                         title='Video Player'
                         style={{ border: 0, zIndex: 10 }}
                         allowFullScreen
-                        allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
+                        allow='accelerometer; encrypted-media; gyroscope; picture-in-picture'
                 ></iframe>
         )
 }

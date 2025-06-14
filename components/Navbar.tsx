@@ -4,10 +4,10 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { redirect, useRouter } from 'next/navigation'
 
-const user = {}
-
 export default function Navbar() {
         const router = useRouter()
+        const { data: session } = authClient.useSession()
+        const user = session?.user
         const handleSignOut = async () => {
                 await authClient.signOut({ fetchOptions: { onSuccess: () => redirect('/sign-in') } })
         }
@@ -25,9 +25,9 @@ export default function Navbar() {
                                 </Link>
                                 {user && (
                                         <figure>
-                                                <button onClick={() => router.push('/profile/1234')}>
+                                                <button onClick={() => router.push('/profile/' + user.id)}>
                                                         <Image
-                                                                src='/assets/images/dummy.jpg'
+                                                                src={user.image || '/assets/icons/user.svg'}
                                                                 width={36}
                                                                 height={36}
                                                                 alt='User Avatar'
