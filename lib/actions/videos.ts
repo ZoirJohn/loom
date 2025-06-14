@@ -130,3 +130,8 @@ export const getAllVideos = withErrorHandling(async (searchQuery: string = '', s
 
         return { videos: videoRecords, pagination: { currentPage: pageNumber, totalVideos, totalPages, pageSize } }
 })
+
+export const getVideoById = withErrorHandling(async (videoId: string) => {
+        const [videoRecord] = await buildVideoWithUserQuery().where(eq(videos.id, videoId))
+        return videoRecord
+})

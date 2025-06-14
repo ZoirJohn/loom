@@ -237,7 +237,7 @@ export function daysAgo(inputDate: Date): string {
         }
 }
 
-export const createIframeLink = (videoId: string) => `https://iframe.mediadelivery.net/embed/421422/${videoId}?autoplay=true&preload=true`
+export const createIframeLink = (videoId: string) => `https://iframe.mediadelivery.net/embed/${process.env.BUNNY_LIBRARY_ID}/${videoId}?autoplay=true&preload=true`
 
 export const doesTitleMatch = (videos: any, searchQuery: string) =>
         ilike(sql`REPLACE(REPLACE(REPLACE(LOWER(${videos.title}), '-', ''), '.', ''), ' ', '')`, `%${searchQuery.replace(/[-. ]/g, '').toLowerCase()}%`)
