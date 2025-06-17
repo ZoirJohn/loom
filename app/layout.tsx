@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { Work_Sans } from 'next/font/google'
 import './globals.css'
-import { satoshi } from '../fonts/font'
 
 const geistKarla = Work_Sans({
         variable: '--font-geist-karla',
@@ -23,7 +22,7 @@ export default function Layout({
 }>) {
         return (
                 <html lang='en'>
-                        <body className={`${geistKarla.variable} ${satoshi.variable} font-karla antialiased`}>{children}</body>
+                        <body className={`${geistKarla.variable} font-karla antialiased`}>{children}</body>
                 </html>
         )
 }

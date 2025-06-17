@@ -12,8 +12,8 @@ import { fixedWindow, request } from '@arcjet/next'
 import { and, desc, eq, ilike, or, sql } from 'drizzle-orm'
 
 const VIDEO_STREAM_BASE_URL = BUNNY.STREAM_BASE_URL
-const THUMNAIL_STORAGE_BASE_URL = BUNNY.STORAGE_BASE_URL
-const THUMNAIL_CDN_URL = BUNNY.CDN_URL
+const THUMBNAIL_STORAGE_BASE_URL = BUNNY.STORAGE_BASE_URL
+const THUMBNAIL_CDN_URL = BUNNY.CDN_URL
 const BUNNY_LIBRARY_ID = getEnv('BUNNY_LIBRARY_ID')
 const ACCESS_KEYS = {
         streamAccessKey: getEnv('BUNNY_STREAM_ACCESS_KEY'),
@@ -74,8 +74,8 @@ export const getVideoUploadUrl = withErrorHandling(async () => {
 
 export const getThumbnailUploadUrl = withErrorHandling(async (videoId: string) => {
         const fileName = `${Date.now()}-${videoId}-thumbnail`
-        const uploadUrl = `${THUMNAIL_STORAGE_BASE_URL}/thumbnails/${fileName}`
-        const cdnUrl = `${THUMNAIL_CDN_URL}/thumbnails/${fileName}`
+        const uploadUrl = `${THUMBNAIL_STORAGE_BASE_URL}/thumbnails/${fileName}`
+        const cdnUrl = `${THUMBNAIL_CDN_URL}/thumbnails/${fileName}`
 
         return {
                 uploadUrl,
@@ -158,4 +158,43 @@ export const getAllVideosByUser = withErrorHandling(async (userIdParameter: stri
                 .orderBy(sortFilter ? getOrderByClause(sortFilter) : desc(videos.createdAt))
 
         return { user: userInfo, videos: userVideos, count: userVideos.length }
+})
+
+export const incrementVideoViews = withErrorHandling(async (videoId: string) => {
+        await db
+                .update(videos)
+                .set({ views: sql`${videos.views} + 1`, updatedAt: new Date() })
+                .where(eq(videos.videoId, videoId))
+
+        revalidatePaths([`/video/${videoId}`])
+        return {}
+})
+
+export const updateVideoVisibility = withErrorHandling(async (videoId: string, visibility: 'public' | 'private') => {
+        await validateWithArcJet(videoId)
+        await db.update(videos).set({ visibility, updatedAt: new Date() }).where(eq(videos.videoId, videoId))
+
+        revalidatePaths(['/', `/video/${videoId}`])
+        return {}
+})
+
+export const getVideoProcessingStatus = withErrorHandling(async (videoId: string) => {
+        const processingInfo = await apiFetch<BunnyVideoResponse>(`${VIDEO_STREAM_BASE_URL}/${BUNNY_LIBRARY_ID}/videos/${videoId}`, { bunnyType: 'stream' })
+
+        return {
+                isProcessed: processingInfo.status === 4,
+                encodingProgress: processingInfo.encodeProgress || 0,
+                status: processingInfo.status,
+        }
+})
+
+export const deleteVideo = withErrorHandling(async (videoId: string, thumbnailUrl: string) => {
+        await apiFetch(`${VIDEO_STREAM_BASE_URL}/${BUNNY_LIBRARY_ID}/videos/${videoId}`, { method: 'DELETE', bunnyType: 'stream' })
+
+        const thumbnailPath = thumbnailUrl.split('thumbnails/')[1]
+        await apiFetch(`${THUMBNAIL_STORAGE_BASE_URL}/thumbnails/${thumbnailPath}`, { method: 'DELETE', bunnyType: 'storage', expectJson: false })
+
+        await db.delete(videos).where(eq(videos.videoId, videoId))
+        revalidatePaths(['/', `/video/${videoId}`])
+        return {}
 })

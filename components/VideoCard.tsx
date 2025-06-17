@@ -1,8 +1,23 @@
 'use client'
 import Image from 'next/image'
 import Link from 'next/link'
+import { MouseEvent, useEffect, useState } from 'react'
 
 export default function VideoCard({ id, title, thumbnail, createdAt, userImg, visibility, duration, username, views }: VideoCardProps) {
+        const [copied, setCopied] = useState(false)
+        const handleCopyLink = (e: MouseEvent<HTMLButtonElement>) => {
+                e.preventDefault()
+                navigator.clipboard.writeText(`${window.location.origin}/video/${id}`)
+                setCopied(true)
+        }
+        useEffect(() => {
+                const timeout = setTimeout(() => {
+                        setCopied(false)
+                }, 2000)
+                return () => {
+                        clearTimeout(timeout)
+                }
+        }, [copied])
         return (
                 <Link
                         href={`/video/${id}`}
@@ -45,11 +60,11 @@ export default function VideoCard({ id, title, thumbnail, createdAt, userImg, vi
                                 </h2>
                         </article>
                         <button
-                                onClick={() => {}}
+                                onClick={handleCopyLink}
                                 className='copy-btn'
                         >
                                 <Image
-                                        src='/assets/icons/link.svg'
+                                        src={copied ? '/assets/images/checked.png' : '/assets/icons/link.svg'}
                                         alt='copy'
                                         width={18}
                                         height={18}

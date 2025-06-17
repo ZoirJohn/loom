@@ -126,7 +126,7 @@ export default function Page() {
                                 <FormField
                                         id='description'
                                         label='Description'
-                                        placeholder='Descrive what this video is about'
+                                        placeholder='Describe what this video is about'
                                         value={formData.description}
                                         as='textarea'
                                         onChange={handleInputChange}
