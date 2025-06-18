@@ -1,4 +1,5 @@
 import VideoDetailHeader from '@/components/VideoDetailHeadet'
+import VideoInfo from '@/components/VideoInfo'
 import VideoPlayer from '@/components/VideoPlayer'
 import { getVideoById } from '@/lib/actions/videos'
 import { redirect } from 'next/navigation'
@@ -24,6 +25,14 @@ export default async function Page({ params }: Params) {
                                         <VideoPlayer videoId={video.videoId} />
                                 </div>
                         </section>
+                        <VideoInfo
+                                transcript={''}
+                                title={video.title}
+                                createdAt={video.createdAt}
+                                description={video.description}
+                                videoId={videoId}
+                                videoUrl={video.videoUrl}
+                        />
                 </main>
         )
 }
