@@ -32,7 +32,7 @@ export default function ComponentName() {
                                                                 />
                                                         ))}
                                                 </figure>
-                                                <p>SnapCast makes screen recording easy. From quick walkthroughs to full presentations, it's fast, smooth, and shareable in seconds</p>
+                                                <p>SnapCast makes screen recording easy. From quick walkthroughs to full presentations, it&apos;s fast, smooth, and shareable in seconds</p>
                                                 <article>
                                                         <Image
                                                                 src='/assets/images/jason.png'

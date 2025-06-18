@@ -31,7 +31,7 @@ export default function Page() {
                 if (videoDuration !== null || 0) {
                         setVideoDuration(video.duration)
                 }
-        }, [video.duration])
+        }, [videoDuration, video.duration])
         useEffect(() => {
                 const checkForRecordedVideo = async () => {
                         try {
